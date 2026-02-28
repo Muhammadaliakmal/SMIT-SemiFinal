@@ -27,10 +27,15 @@ app.get('/', (req, res) => {
 mongoose.connect(MONGO_URI)
     .then(() => {
         console.log("Connected to MongoDB");
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
-        });
     })
     .catch((error) => {
         console.error("Database connection error:", error.message);
     });
+
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+}
+
+export default app;
